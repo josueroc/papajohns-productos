@@ -1,4 +1,3 @@
-org: ${env:SLS_ORG}
 service: papajohns-product-service
 
 frameworkVersion: '3'

@@ -1,4 +1,5 @@
 import os
+import json
 import boto3
 from boto3.dynamodb.conditions import Key
 from src.utils import response
@@ -10,9 +11,21 @@ def lambda_handler(event, context):
     try:
         tenant_id = event["pathParameters"]["tenantId"]
 
-        result = table.query(
-            KeyConditionExpression=Key("tenantId").eq(tenant_id)
-        )
+        query_params = event.get("queryStringParameters") or {}
+
+        limit = int(query_params.get("limit", 10))
+
+        last_key = query_params.get("lastKey")
+
+        query = {
+            "KeyConditionExpression": Key("tenantId").eq(tenant_id),
+            "Limit": limit
+        }
+
+        if last_key:
+            query["ExclusiveStartKey"] = json.loads(last_key)
+
+        result = table.query(**query)
 
         products = result.get("Items", [])
 
@@ -24,7 +37,10 @@ def lambda_handler(event, context):
                     f"https://{bucket}.s3.amazonaws.com/{product['imageKey']}"
                 )
 
-        return response(200, products)
+        return response(200, {
+            "products": products,
+            "lastKey": result.get("LastEvaluatedKey")
+        })
 
     except Exception as e:
         return response(500, {
