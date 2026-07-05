@@ -4,8 +4,8 @@ Este documento define la interfaz de comunicación entre las aplicaciones Fronte
 
 Configuración Base
 
-* Base URL (Desarrollo): https://{api-id}.execute-api.us-east-1.amazonaws.com/dev
-* Content-Type: application/json
+* Base URL (Desarrollo):
+https://lvj7eihd07.execute-api.us-east-1.amazonaws.com/dev* Content-Type: application/json
 * Multi-tenancy: Todas las rutas incluyen un {tenantId} que representa la sucursal de Papa John’s (Ejemplo: SURCO-01, MIRAFLORES-02).
 
 ⸻
