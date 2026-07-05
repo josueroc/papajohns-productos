@@ -1,63 +1,83 @@
-Papa John’s Product Service
+# 🍕 Papa John's Product Service
 
-Servicio serverless desarrollado con AWS Lambda y Serverless Framework para realizar scraping del catálogo de productos de Papa John’s y exponer la información mediante una API.
+Este proyecto implementa un servicio **serverless** en AWS que realiza el scraping del catálogo de productos de Papa John's y expone la información a través de una API REST.
 
-Tecnologías
+## Tecnologías utilizadas
 
-* AWS Lambda
-* API Gateway
-* DynamoDB
-* Amazon S3
-* Python 3.11
-* Serverless Framework
-* Docker
+- Python 3.11
+- AWS Lambda
+- API Gateway
+- Amazon DynamoDB
+- Amazon S3
+- Serverless Framework
+- Docker
 
-Requisitos
+## Requisitos
 
-* Node.js
-* Python 3.11
-* Docker
-* AWS CLI con credenciales válidas
-* Serverless Framework
+Antes de comenzar, asegúrate de tener instalado:
 
-Instalación
+- Node.js
+- Python 3.11
+- Docker
+- AWS CLI con credenciales configuradas
+- Serverless Framework
 
-Clonar el repositorio:
+## Instalación
 
+1. Clona el repositorio:
+
+```bash
 git clone <URL_DEL_REPOSITORIO>
 cd papajohns-productos
+```
 
-Instalar dependencias:
+2. Instala las dependencias:
 
+```bash
 npm install
+```
 
-Configuración de Docker (Amazon Linux)
+## Configurar Docker (Amazon Linux)
 
+Si estás utilizando Amazon Linux:
+
+```bash
 sudo dnf install docker -y
 sudo systemctl start docker
 sudo usermod -aG docker ec2-user
 newgrp docker
+```
 
-Verificar que Docker esté ejecutándose:
+Puedes verificar que Docker esté funcionando con:
 
+```bash
 docker ps
+```
 
-Configurar credenciales de AWS
+## Configurar AWS
 
-Verificar que las credenciales sean válidas:
+Verifica que tus credenciales sean válidas ejecutando:
 
+```bash
 aws sts get-caller-identity
+```
 
-Si las credenciales expiraron (por ejemplo, en AWS Academy Learner Lab), actualice el archivo:
+Si utilizas **AWS Academy Learner Lab**, recuerda que las credenciales expiran periódicamente y deberás actualizarlas en:
 
+```text
 ~/.aws/credentials
+```
 
-Despliegue
+## Desplegar el servicio
 
+Una vez configurado el entorno, despliega el proyecto con:
+
+```bash
 sls deploy
+```
 
-Al finalizar el despliegue, Serverless mostrará los endpoints creados por API Gateway.
+Al finalizar, Serverless mostrará las URLs de los endpoints creados en API Gateway.
 
-API
+## Documentación de la API
 
-La especificación de los endpoints, parámetros y respuestas se encuentra en el archivo API_CONTRACT.md.
+La especificación de los endpoints, parámetros, respuestas y códigos de error se encuentra en **API_CONTRACT.md**.
