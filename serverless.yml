@@ -2,13 +2,20 @@ service: papajohns-product-service
 
 frameworkVersion: '3'
 
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: false
+
 provider:
   name: aws
   runtime: python3.11
   region: us-east-1
   stage: ${opt:stage, 'dev'}
   memorySize: 1024
-  timeout: 29
+  timeout: 60
 
   iam:
     role: arn:aws:iam::${aws:accountId}:role/LabRole
@@ -25,6 +32,18 @@ functions:
           path: /tenants/{tenantId}/products
           method: get
           cors: true
+
+  scrapeProducts:
+    handler: src/handlers/scrape_products.lambda_handler
+    timeout: 60
+    memorySize: 1024
+    events:
+      - http:
+          path: /scrape-products
+          method: post
+          cors: true
+      # opcional para ejecución automática diaria
+      # - schedule: rate(1 day)
 
 resources:
   Resources:
